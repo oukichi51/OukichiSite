@@ -1,0 +1,16 @@
+# ベースイメージとしてNode.jsを使用
+FROM node:18-alpine
+
+# 作業ディレクトリを設定
+WORKDIR /app
+
+# 必要なパッケージをインストール
+COPY package*.json ./
+RUN npm install
+
+# TailwindCSSの監視モードを実行
+CMD ["npx", "tailwindcss", "-i", "/app/src/input.css", "-o", "/app/dist/output.css", "--watch"]
+
+
+# docker build -t tailwind-build -f Dockerfile.build .
+# docker run --rm -v D:/GitHubPages/OukichiSite:/app tailwind-build

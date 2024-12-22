@@ -1,0 +1,14 @@
+# ベースイメージとしてNode.jsを使用
+FROM node:18-alpine
+
+# 作業ディレクトリを設定
+WORKDIR /app
+
+# 必要なパッケージをインストール
+RUN npm install -D tailwindcss postcss autoprefixer
+
+# 必要なディレクトリを作成してTailwindCSSを初期化
+CMD ["sh", "-c", "mkdir -p ./src && npx tailwindcss init && echo '@tailwind base;\n@tailwind components;\n@tailwind utilities;' > ./src/input.css"]
+
+# docker build -t tailwind-init -f Dockerfile.init .
+# docker run --rm -v D:/GitHubPages/OukichiSite:/app tailwind-init
