@@ -1,20 +1,18 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const includeHTML = async (selector, file) => {
-    const element = document.querySelector(selector);
-    if (element) {
+  const includes = document.querySelectorAll("[data-include]");
+  includes.forEach(async (el) => {
+    const file = el.getAttribute("data-include");
+    if (file) {
       try {
         const response = await fetch(file);
         if (response.ok) {
-          element.innerHTML = await response.text();
+          el.innerHTML = await response.text();
         } else {
-          console.error(`Failed to fetch ${file}: ${response.status} ${response.statusText}`);
+          console.error(`Failed to load ${file}: ${response.statusText}`);
         }
       } catch (error) {
         console.error(`Error fetching ${file}:`, error);
       }
     }
-  };
-
-  includeHTML("header[data-include]", "../components/header.html");
-  includeHTML("footer[data-include]", "../components/footer.html");
+  });
 });
