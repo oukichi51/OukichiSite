@@ -6,7 +6,6 @@ services:
       dockerfile: Dockerfile.build
     volumes:
       - ./docs:/app/src
-      - ./dist:/app/dist
       - ./tailwind.config.js:/app/tailwind.config.js
-    command: ["sh", "-c", "while true; do npx tailwindcss -i ./src/input.css -o ./src/dist/output.css > /dev/null 2>&1; sleep 1; done"]
+    command: ["sh", "-c", "while true; do npx tailwindcss -i ./src/input.css -o ./src/dist/output.css; sleep 1; done"]
 

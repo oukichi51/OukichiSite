@@ -9,7 +9,7 @@ COPY package*.json ./
 RUN npm install
 
 # TailwindCSSの監視モードを実行
-CMD ["npx", "tailwindcss", "-i", "/app/src/input.css", "-o", "/app/dist/output.css", "--watch"]
+CMD ["npx", "tailwindcss", "-i", "/app/src/input.css", "-o", "/app/src/dist/output.css", "--watch"]
 
 
 # docker build -t tailwind-build -f Dockerfile.build .
