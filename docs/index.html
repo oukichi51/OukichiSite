@@ -5,16 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="./dist/output.css" rel="stylesheet">
   <title>My TailwindCSS Site</title>
+  <script src="./scripts/include-components.js"></script>
 </head>
 <body class="font-sans bg-gray-100 text-gray-900">
   <!-- Header -->
-  <header data-include="/OukichiSite/docs/components/header.html"></header>
+  <header data-include="./components/header.html"></header>
 
   <!-- Main Content -->
   <main class="max-w-4xl mx-auto px-4">
     <!-- 記事一覧 -->
     <section class="mb-8">
-      <h2 class="text-2xl font-semibold mb-4">記事一覧(V1.0)</h2>
+      <h2 class="text-2xl font-semibold mb-4">記事一覧(V1.1)</h2>
       <ul class="list-disc list-inside space-y-2">
         <li>
           <a
@@ -49,7 +50,6 @@
   </main>
 
   <!-- Footer -->
-  <footer data-include="/OukichiSite/docs/components/footer.html"></footer>
-  <script src="./scripts/include-components.js"></script>
+  <footer data-include="./components/footer.html"></footer>
 </body>
 </html>
