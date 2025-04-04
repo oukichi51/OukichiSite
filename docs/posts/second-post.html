@@ -3,28 +3,98 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="../dist/output.css" rel="stylesheet">
-  <title>2番目の投稿 (Second Post)</title>
+  <title>プロジェクト概要 - OukichiSite</title>
+  <link rel="stylesheet" href="../dist/output.css">
+  <script src="../scripts/include-components.js" defer></script>
 </head>
-<body class="font-sans bg-gray-100 text-gray-900">
+<body class="font-sans bg-blue-50 text-black">
   <!-- Header -->
   <header data-include="../components/header.html"></header>
 
   <!-- Main Content -->
-  <main class="max-w-4xl mx-auto px-4">
-    <article>
-      <h2 class="text-2xl font-semibold mb-4">2番目の投稿 (Second Post)</h2>
-      <p class="mb-4">
-        これは2番目の投稿です！今回は、ブログのデザインや構成について少し詳しく説明します。
+  <main class="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg mt-6">
+    <h1 class="text-4xl font-bold text-center text-blue-600 mb-6">プロジェクト概要</h1>
+    <section class="mb-6">
+      <h2 class="text-2xl font-semibold text-blue-500 mb-2">プロジェクト名</h2>
+      <p class="text-lg">OukichiSite</p>
+    </section>
+    <section class="mb-6">
+      <h2 class="text-2xl font-semibold text-blue-500 mb-2">目的</h2>
+      <p class="text-lg">
+        このプロジェクトは、自己紹介や技術ブログを公開するための個人ウェブサイトを構築することを目的としています。
       </p>
-      <p class="mb-4">
-        Tailwind CSS のユーティリティクラスを活用することで、効率的にスタイリングが可能です。
+    </section>
+    <section class="mb-6">
+      <h2 class="text-2xl font-semibold text-blue-500 mb-2">ファイル構成</h2>
+      <p class="text-lg">
+        プロジェクトは以下のような構成になっています：
       </p>
-    </article>
+      <ul class="list-disc list-inside text-lg">
+        <li><code>/docs/posts/</code>: 各投稿のHTMLファイルを格納</li>
+        <li><code>/components/</code>: ヘッダーやフッターなどの共通コンポーネント</li>
+        <li><code>/dist/</code>: CSSやJavaScriptのビルド済みファイル</li>
+        <li><code>/scripts/</code>: クライアントサイドのスクリプト</li>
+      </ul>
+    </section>
+    <section class="mb-6">
+      <h2 class="text-2xl font-semibold text-blue-500 mb-2">主な機能</h2>
+      <p class="text-lg">
+        このサイトは以下の機能を提供します：
+      </p>
+      <ul class="list-disc list-inside text-lg">
+        <li>自己紹介ページ</li>
+        <li>技術ブログの投稿と管理</li>
+        <li>レスポンシブデザインによるモバイル対応</li>
+      </ul>
+    </section>
+    <section class="mb-6">
+      <h2 class="text-2xl font-semibold text-blue-500 mb-2">今後の展望</h2>
+      <p class="text-lg">
+        今後は、コメント機能やダークモードの実装を検討しています。
+      </p>
+    </section>
+    <section class="mb-6">
+      <h2 class="text-2xl font-semibold text-blue-500 mb-2">GitHubPagesでTailwindcssを使用したブログを構築してみた</h2>
+      <p class="text-lg">
+        本記事では、GitHub Pagesを利用してTailwind CSSを活用したブログを構築する方法について解説します。
+        静的サイトジェネレーターを使わず、HTMLとCSSを直接編集するシンプルなアプローチを採用しました。
+      </p>
+    </section>
+    <section class="mb-6">
+      <h2 class="text-2xl font-semibold text-blue-500 mb-2">使用した技術</h2>
+      <ul class="list-disc list-inside text-lg">
+        <li>GitHub Pages: 静的サイトのホスティング</li>
+        <li>Tailwind CSS: ユーティリティファーストのCSSフレームワーク</li>
+        <li>HTML: コンテンツのマークアップ</li>
+        <li>JavaScript: コンポーネントの動的読み込み</li>
+      </ul>
+    </section>
+    <section class="mb-6">
+      <h2 class="text-2xl font-semibold text-blue-500 mb-2">構築手順</h2>
+      <ol class="list-decimal list-inside text-lg">
+        <li>GitHubリポジトリを作成し、GitHub Pagesを有効化</li>
+        <li>Tailwind CSSをインストールし、設定ファイルを作成</li>
+        <li>HTMLファイルを作成し、Tailwind CSSを適用</li>
+        <li>共通コンポーネント（ヘッダー、フッター）をJavaScriptで動的に読み込む仕組みを実装</li>
+        <li>完成したサイトをGitHub Pagesにデプロイ</li>
+      </ol>
+    </section>
+    <section class="mb-6">
+      <h2 class="text-2xl font-semibold text-blue-500 mb-2">工夫した点</h2>
+      <p class="text-lg">
+        Tailwind CSSのユーティリティクラスを活用して、レスポンシブデザインを簡単に実現しました。
+        また、共通コンポーネントを動的に読み込むことで、コードの重複を減らし、メンテナンス性を向上させました。
+      </p>
+    </section>
+    <section class="mb-6">
+      <h2 class="text-2xl font-semibold text-blue-500 mb-2">テスト環境</h2>
+      <p class="text-lg">
+        このプロジェクトでは、Dockerを使用してローカル環境でのテストを行っています。Dockerを利用することで、環境構築を簡略化し、開発者間での環境の一貫性を保つことができます。
+      </p>
+    </section>
   </main>
 
   <!-- Footer -->
   <footer data-include="../components/footer.html"></footer>
-  <script src="../scripts/include-components.js"></script>
 </body>
 </html>
