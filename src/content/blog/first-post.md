@@ -1,16 +1,54 @@
 ---
-title: 'First post'
-description: 'Lorem ipsum dolor sit amet'
-pubDate: 'Jul 08 2022'
+title: '技術ブログをはじめました'
+description: 'エンジニア5年目、変わりたいと思いブログを始めました。'
+pubDate: 'Dec 24 2025'
 heroImage: '../../assets/blog-placeholder-3.jpg'
 ---
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
+こんにちは。エンジニア5年目のおーきちです。
 
-Morbi tristique senectus et netus. Id semper risus in hendrerit gravida rutrum quisque non tellus. Habitasse platea dictumst quisque sagittis purus sit amet. Tellus molestie nunc non blandit massa. Cursus vitae congue mauris rhoncus. Accumsan tortor posuere ac ut. Fringilla urna porttitor rhoncus dolor. Elit ullamcorper dignissim cras tincidunt lobortis. In cursus turpis massa tincidunt dui ut ornare lectus. Integer feugiat scelerisque varius morbi enim nunc. Bibendum neque egestas congue quisque egestas diam. Cras ornare arcu dui vivamus arcu felis bibendum. Dignissim suspendisse in est ante in nibh mauris. Sed tempus urna et pharetra pharetra massa massa ultricies mi.
+今年に入ってから「現状のままだと伸び悩むかも」と感じることが増えました。  
+仕事は回せるけれど、学びが点になっていて線になっていない。アウトプットが少ない。  
+そんな反省から、技術ブログを始めることにしました。
 
-Mollis nunc sed id semper risus in. Convallis a cras semper auctor neque. Diam sit amet nisl suscipit. Lacus viverra vitae congue eu consequat ac felis donec. Egestas integer eget aliquet nibh praesent tristique magna sit amet. Eget magna fermentum iaculis eu non diam. In vitae turpis massa sed elementum. Tristique et egestas quis ipsum suspendisse ultrices. Eget lorem dolor sed viverra ipsum. Vel turpis nunc eget lorem dolor sed viverra. Posuere ac ut consequat semper viverra nam. Laoreet suspendisse interdum consectetur libero id faucibus. Diam phasellus vestibulum lorem sed risus ultricies tristique. Rhoncus dolor purus non enim praesent elementum facilisis. Ultrices tincidunt arcu non sodales neque. Tempus egestas sed sed risus pretium quam vulputate. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare. Fringilla urna porttitor rhoncus dolor purus non. Amet dictum sit amet justo donec enim.
+## なぜブログを始めたのか
 
-Mattis ullamcorper velit sed ullamcorper morbi tincidunt. Tortor posuere ac ut consequat semper viverra. Tellus mauris a diam maecenas sed enim ut sem viverra. Venenatis urna cursus eget nunc scelerisque viverra mauris in. Arcu ac tortor dignissim convallis aenean et tortor at. Curabitur gravida arcu ac tortor dignissim convallis aenean et tortor. Egestas tellus rutrum tellus pellentesque eu. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Ut enim blandit volutpat maecenas volutpat blandit aliquam etiam. Id donec ultrices tincidunt arcu. Id cursus metus aliquam eleifend mi.
+自分の中で理由は3つあります。
 
-Tempus quam pellentesque nec nam aliquam sem. Risus at ultrices mi tempus imperdiet. Id porta nibh venenatis cras sed felis eget velit. Ipsum a arcu cursus vitae. Facilisis magna etiam tempor orci eu lobortis elementum. Tincidunt dui ut ornare lectus sit. Quisque non tellus orci ac. Blandit libero volutpat sed cras. Nec tincidunt praesent semper feugiat nibh sed pulvinar proin gravida. Egestas integer eget aliquet nibh praesent tristique magna.
+1. **理解を深めたい**  
+   誰かに説明できる状態まで落とし込むと、曖昧な部分がはっきりします。
+2. **学習を習慣にしたい**  
+   「記事にする」締切があると、手を動かす頻度が上がるはず。
+3. **あとで自分が助かる**  
+   同じことで詰まったときに、過去の自分の記事が一番頼りになります。
+
+## このブログで書くこと
+
+基本は「自分が仕事や個人開発でつまずいたこと・学んだこと」を中心に書きます。
+
+- Unity開発
+- コードについての学び
+- 設計・レビュー観点、開発の進め方
+- ちょっとした小ネタ（ハマりポイント、便利スニペット）
+
+## 書かないこと（方針）
+
+続けるために、最初からルールも決めておきます。
+
+- 無理に舞中更新しない（途切れても再開する）
+- 完璧な記事を目指しすぎない（まず公開して改善する）
+- 断定しすぎない（検証条件や前提を書く）
+
+## 直近の目標
+
+まずは小さく、具体的に。
+
+- 1記事は「結論 → 手順 → ハマりポイント → まとめ」の型で書く
+- 記事にした内容を、仕事にもすぐ還元する
+
+## 最後に
+
+このブログは「変わりたい」と思った自分の記録です。  
+同じように悩んでいる人のヒントになったり、未来の自分を助けられたら嬉しいです。
+
+次回は、**このブログの技術構成（Astro / Markdown / デプロイ周り）**について書こうと思います。
