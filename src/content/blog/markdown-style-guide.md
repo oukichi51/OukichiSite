@@ -1,7 +1,7 @@
 ---
-title: 'Markdown Style Guide'
-description: 'Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.'
-pubDate: 'Jun 19 2024'
+title: 'Markdown Style Guide(自分用)'
+description: '慣れていないので記事の書き方を自分用に本記事に記載します。'
+pubDate: 'Dec 24 2025'
 heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
 
