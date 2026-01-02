@@ -1,0 +1,158 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import BaseHead from '../../../components/BaseHead.astro';
+import Footer from '../../../components/Footer.astro';
+import FormattedDate from '../../../components/FormattedDate.astro';
+import Header from '../../../components/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../../../consts';
+import { withBase } from '../../../utils/url';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('blog');
+	const tags = new Set<string>();
+	
+	posts.forEach((post) => {
+		if (post.data.tags) {
+			post.data.tags.forEach((tag) => tags.add(tag));
+		}
+	});
+
+	return Array.from(tags).map((tag) => ({
+		params: { tag },
+		props: { tag },
+	}));
+}
+
+const { tag } = Astro.params;
+const posts = (await getCollection('blog'))
+	.filter((post) => post.data.tags && post.data.tags.includes(tag!))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const publicPosts = posts.filter((p) => !(p.data?.draft ?? false));
+---
+
+<!doctype html>
+<html lang="ja">
+	<head>
+		<BaseHead title={`${tag} - ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
+		<style>
+			main {
+				width: min(960px, 100%);
+				margin: 0 auto;
+				padding: 2.5rem 1.25rem;
+			}
+			h1 {
+				font-size: clamp(2rem, 3.2vw, 3rem);
+				line-height: 1.1;
+				margin: 0 0 1.5rem;
+			}
+			.grid {
+				display: grid;
+				gap: 1rem;
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+			}
+			@media (max-width: 860px) {
+				.grid {
+					grid-template-columns: 1fr;
+				}
+			}
+			.card {
+				border: 1px solid rgba(127, 127, 127, 0.22);
+				background: rgba(127, 127, 127, 0.12);
+				border-radius: 0.9rem;
+				padding: 1rem;
+			}
+			.postCard a {
+				text-decoration: none;
+				display: block;
+			}
+			.postCard img {
+				margin-bottom: 0.6rem;
+				border-radius: 12px;
+			}
+			.postTitle {
+				margin: 0;
+				line-height: 1.25;
+			}
+			.postMeta {
+				margin: 0.35rem 0 0;
+				opacity: 0.8;
+				font-size: 0.95rem;
+			}
+			.muted {
+				opacity: 0.8;
+				font-size: 0.95rem;
+				margin: 0.25rem 0 0;
+			}
+			.tags {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.5rem;
+				margin: 0.5rem 0 0;
+			}
+			.tag {
+				display: inline-block;
+				padding: 0.25rem 0.75rem;
+				border-radius: 0.5rem;
+				background: rgba(127, 127, 127, 0.2);
+				font-size: 0.85rem;
+				text-decoration: none;
+			}
+			.tag:hover {
+				background: rgba(127, 127, 127, 0.3);
+			}
+			.backLink {
+				display: inline-block;
+				margin-bottom: 1rem;
+				color: rgba(127, 127, 127, 0.8);
+				text-decoration: none;
+			}
+			.backLink:hover {
+				color: rgba(127, 127, 127, 1);
+			}
+		</style>
+	</head>
+
+	<body>
+		<Header />
+		<main>
+			<a href={withBase('blog/')} class="backLink">← 記事一覧に戻る</a>
+			<h1>タグ: {tag}</h1>
+
+			{publicPosts.length > 0 ? (
+				<div class="grid">
+					{publicPosts.map((post) => (
+						<div class="card postCard">
+							<a href={withBase(`blog/${post.id}/`)}>
+								{post.data.heroImage && (
+									<Image width={720} height={360} src={post.data.heroImage} alt="" />
+								)}
+								<h3 class="postTitle">{post.data.title}</h3>
+								<p class="postMeta">
+									<FormattedDate date={post.data.pubDate} />
+								</p>
+								{post.data.description && <p class="muted">{post.data.description}</p>}
+								{post.data.tags && post.data.tags.length > 0 && (
+									<div class="tags">
+										{post.data.tags.map((t) => (
+											<a href={withBase(`blog/tags/${t}/`)} class="tag">
+												{t}
+											</a>
+										))}
+									</div>
+								)}
+							</a>
+						</div>
+					))}
+				</div>
+			) : (
+				<div class="card">
+					<p style="margin:0;">このタグの記事はまだありません。</p>
+				</div>
+			)}
+		</main>
+		<Footer />
+	</body>
+</html>
+

@@ -3,6 +3,8 @@ title: '技術ブログをはじめました'
 description: 'エンジニア5年目、変わりたいと思いブログを始めました。'
 pubDate: 'Dec 24 2025'
 heroImage: '../../assets/blog-placeholder-3.jpg'
+tags:
+  - '学習ログ'
 ---
 
 こんにちは。エンジニア5年目のおーきちです。

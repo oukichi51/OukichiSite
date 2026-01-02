@@ -1,49 +1,198 @@
 ---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
+
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { withBase } from '../utils/url';
+
+// 記事取得（一覧ページと同じ並び）
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+// draft運用に備える（draftが無い場合も壊れない）
+const publicPosts = posts.filter((p) => !(p.data?.draft ?? false));
+const latestPosts = publicPosts.slice(0, 6);
+
+// 方針の記事を自動検出（タイトルに含まれる単語で判定）
+const policyPost =
+  publicPosts.find((p) => /方針|ポリシー|運用|ルール/.test(String(p.data.title))) ?? null;
+
+// 実際に存在するタグを取得
+const tagSet = new Set<string>();
+publicPosts.forEach((post) => {
+  if (post.data.tags) {
+    post.data.tags.forEach((tag) => tagSet.add(tag));
+  }
+});
+
+// タグの説明マップ
+const tagDescriptions: Record<string, string> = {
+  'Unity': '開発メモ/詰まりどころ',
+  'コード': '学び/実装/小技',
+  '設計': '整理/指針/レビュー観点',
+  'レビュー': '観点/チェックリスト',
+  '小ネタ': 'スニペット/便利技',
+  '学習ログ': '理解の整理/復習',
+};
+
+// 実際に存在するタグのみでカテゴリを生成
+const categories = Array.from(tagSet)
+  .sort()
+  .map((tag) => ({
+    title: tag,
+    desc: tagDescriptions[tag] || '記事一覧',
+    href: `blog/tags/${tag}/`,
+  }));
 ---
 
 <!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
+<html lang="ja">
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <style>
+      :root {
+        --max: 960px;
+        --pad: 1.25rem;
+        --card: rgba(127,127,127,.12);
+        --border: rgba(127,127,127,.22);
+      }
+      main { width: min(var(--max), 100%); margin: 0 auto; padding: 2.5rem var(--pad); }
+      section { margin: 2.75rem 0; }
+      h1 { font-size: clamp(2rem, 3.2vw, 3rem); line-height: 1.1; margin: 0 0 .75rem; }
+      h2 { font-size: 1.4rem; margin: 0 0 1rem; }
+      p { line-height: 1.85; margin: .6rem 0; }
+      .kicker { font-size: .95rem; opacity: .8; margin: 0 0 .25rem; }
+      .muted { opacity: .8; font-size: .95rem; margin: .25rem 0 0; }
+      .hr { height: 1px; background: var(--border); margin: 2rem 0; border: 0; }
+
+      .cta { display: flex; gap: .75rem; flex-wrap: wrap; margin-top: 1.25rem; }
+      .btn { display: inline-block; padding: .7rem 1rem; border-radius: .65rem; border: 1px solid var(--border); text-decoration: none; }
+      .btn.primary { border-color: transparent; background: rgba(127,127,127,.2); }
+
+      .card { border: 1px solid var(--border); background: var(--card); border-radius: .9rem; padding: 1rem; }
+      .grid { display: grid; gap: 1rem; }
+      .grid.cols3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .grid.cols2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      @media (max-width: 860px) { .grid.cols3, .grid.cols2 { grid-template-columns: 1fr; } }
+
+      .hero { padding: 2rem 0 1rem; }
+      .hero p { max-width: 75ch; }
+
+      .linkCard a { text-decoration: none; display: block; }
+      .postCard img { margin-bottom: .6rem; border-radius: 12px; }
+      .postTitle { margin: 0; line-height: 1.25; }
+      .postMeta { margin: .35rem 0 0; opacity: .8; font-size: .95rem; }
+      .tags { display: flex; flex-wrap: wrap; gap: .5rem; margin: .5rem 0 0; }
+      .tag { display: inline-block; padding: .25rem .75rem; border-radius: .5rem; background: rgba(127,127,127,.2); font-size: .85rem; text-decoration: none; }
+      .tag:hover { background: rgba(127,127,127,.3); }
+    </style>
+  </head>
+
+  <body>
+    <Header />
+
+    <main>
+      <!-- Hero -->
+      <section class="hero">
+        <p class="kicker">自分のための技術ブログ</p>
+        <h1>学びを、あとで回収できる形で残す。</h1>
+        <p>
+          仕事や個人開発でつまずいたこと・学んだことを、未来の自分が最短で取り出せるように整理して書いています。
+          なるべく「結論 → 手順 → ハマりポイント」の順で、再現性を優先します。
+        </p>
+        <div class="cta">
+          <a class="btn primary" href="#latest">最新記事を見る</a>
+          <a class="btn" href={withBase('blog/')}>記事一覧</a>
+          {policyPost && <a class="btn" href={withBase(`blog/${policyPost.id}/`)}>ブログ方針</a>}
+        </div>
+      </section>
+
+      <hr class="hr" />
+
+      <!-- Policy -->
+      <section id="policy">
+        <h2>ブログ方針</h2>
+        <div class="card linkCard">
+          {policyPost ? (
+            <a href={withBase(`blog/${policyPost.id}/`)}>
+              <strong>{policyPost.data.title}</strong>
+              {policyPost.data.description && <p class="muted">{policyPost.data.description}</p>}
+              <p class="muted"><FormattedDate date={policyPost.data.pubDate} /></p>
+            </a>
+          ) : (
+            <div>
+              <strong>ブログ方針</strong>
+              <p class="muted">タイトルに「方針/ポリシー/運用/ルール」を含む記事がまだ無いようです。</p>
+              <p class="muted">記事を書いたらここに自動でリンクされます。</p>
+            </div>
+          )}
+        </div>
+      </section>
+
+      <!-- Categories -->
+      <section id="categories">
+        <h2>メモの種類</h2>
+        <div class="grid cols3">
+          {categories.map((c) => (
+            <div class="card linkCard">
+              <a href={withBase(c.href)}>
+                <strong>{c.title}</strong>
+                <p class="muted">{c.desc}</p>
+              </a>
+            </div>
+          ))}
+        </div>
+        <p class="muted">※タグページが未実装なら、いったん各リンクを <code>blog/</code> に変更すると安全です。</p>
+      </section>
+
+      <!-- Latest -->
+      <section id="latest">
+        <h2>最新記事</h2>
+
+        {latestPosts.length > 0 ? (
+          <div class="grid cols2">
+            {latestPosts.map((post) => (
+              <div class="card postCard">
+                <a href={withBase(`blog/${post.id}/`)} style="text-decoration:none; display:block;">
+                  {post.data.heroImage && (
+                    <Image width={720} height={360} src={post.data.heroImage} alt="" />
+                  )}
+                  <h3 class="postTitle">{post.data.title}</h3>
+                  <p class="postMeta">
+                    <FormattedDate date={post.data.pubDate} />
+                  </p>
+                  {post.data.description && <p class="muted">{post.data.description}</p>}
+                  {post.data.tags && post.data.tags.length > 0 && (
+                    <div class="tags">
+                      {post.data.tags.map((tag) => (
+                        <a href={withBase(`blog/tags/${tag}/`)} class="tag">
+                          {tag}
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </a>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div class="card">
+            <p style="margin:0;">まだ記事がありません。最初の記事を公開したらここに並びます。</p>
+          </div>
+        )}
+
+        <div class="cta" style="margin-top: 1rem;">
+          <a class="btn" href={withBase('blog/')}>記事一覧を見る</a>
+        </div>
+      </section>
+    </main>
+
+    <Footer />
+  </body>
 </html>
